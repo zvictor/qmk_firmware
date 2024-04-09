@@ -50,13 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * QWERTY
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  `   |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | Bspc |
+ * |  `~  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  `~  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |  ;:  |  '"  |
  * |------+------+------+------+------+------|  Mute |    | Pause |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |  ,<  |  .>  |  /?  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-    KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,           LT(_SWITCH,KC_6),     KC_7,     KC_8,    KC_9,    KC_0,    KC_GRV,
-    KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,           LT(_SWITCH,KC_6),     KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
+    KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                       KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    KC_GRV,
 LT(_NUMPAD,KC_TAB),KC_A,KC_S,  KC_D,    KC_F,    KC_G,                       KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY,KC_N,     KC_M,     KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                       KC_LGUI,KC_LALT,KC_LCTL, MO(_LOWER), KC_ENT,      KC_SPC,  MO(_RAISE), KC_RCTL, KC_RALT, KC_RGUI
@@ -74,24 +74,24 @@ LT(_NUMPAD,KC_TAB),KC_A,KC_S,  KC_D,    KC_F,    KC_G,                       KC_
 /*
  * ENGRAM
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  [   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  ]   |
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | TAB  |   B  |   Y  |   O  |   U  |  '"  |                    |   "  |   L  |   D  |   W  |   V  |  Z   |
+ * |  `~  |   B  |   Y  |   O  |   U  |  '"  |                    |  ;:  |   L  |   D  |   W  |   V  |  Z   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | CAPS |   C  |   I  |   E  |   A  |  ,<  |-------.    ,-------|   .  |   H  |   T  |   S  |   N  |  Q   |
+ * | Tab  |   C  |   I  |   E  |   A  |  ,<  |-------.    ,-------|  .>  |   H  |   T  |   S  |   N  |  Q   |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * | LSFT |   G  |   X  |   J  |   K  |  -_  |-------|    |-------|   ?  |   R  |   M  |   F  |   P  | RSFT |
+ * |LShift|   G  |   X  |   J  |   K  |  -_  |-------|    |-------|  /?  |   R  |   M  |   F  |   P  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_ENGRAM] = LAYOUT(
-        KC_LBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,            LT(_SWITCH,KC_6),   KC_7,    KC_8,    KC_9,   KC_0,    KC_RBRC,
-LT(_NUMPAD,KC_TAB),KC_B,  KC_Y,    KC_O,    KC_U,    KC_QUOT,                    KC_DQUO, KC_L,    KC_D,    KC_W,   KC_V,    KC_Z,
-        KC_CAPS, KC_C,    KC_I,    KC_E,    KC_A,    KC_COMM,                    KC_DOT,  KC_H,    KC_T,    KC_S,   KC_N,    KC_Q,
-        KC_LSFT, KC_G,    KC_X,    KC_J,    KC_K,    KC_MINS, KC_MUTE,  KC_MPLY, KC_QUES, KC_R,    KC_M,    KC_F,   KC_P,    KC_RSFT,
-                        KC_LGUI,KC_LALT,KC_LCTL, MO(_LOWER), KC_ENT,      KC_SPC,  MO(_RAISE), KC_RCTL, KC_RALT, KC_RGUI
+        KC_ESC,   KC_1,     KC_2,    KC_3,    KC_4,    KC_5,            LT(_SWITCH,KC_6),   KC_7,    KC_8,    KC_9,   KC_0,    KC_BSPC,
+        KC_GRV,   KC_B,     KC_Y,    KC_O,    KC_U,    KC_QUOT,                    KC_SCLN, KC_L,    KC_D,    KC_W,   KC_V,    KC_Z,
+LT(_NUMPAD,KC_TAB),KC_C,    KC_I,    KC_E,    KC_A,    KC_COMM,                    KC_DOT,  KC_H,    KC_T,    KC_S,   KC_N,    KC_Q,
+        KC_LSFT,  KC_G,     KC_X,    KC_J,    KC_K,    KC_MINS, KC_MUTE,  KC_MPLY, KC_SLSH, KC_R,    KC_M,    KC_F,   KC_P,    KC_RSFT,
+                            KC_LGUI,KC_LALT,KC_LCTL, MO(_LOWER), KC_ENT,      KC_SPC,  MO(_RAISE), KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -148,7 +148,7 @@ LT(_NUMPAD,KC_TAB),KC_B,  KC_Y,    KC_O,    KC_U,    KC_QUOT,                   
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   |  |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |  =   |  -   |  +   |   {  |   }  |-------|    |-------|   [  |   ]  |   ;  |   :  |   \  | Shift|
+ * |      |  =   |  -   |  +   |   {  |   }  |-------|    |-------|   [  |   ]  |   ;  |   :  |   \  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |      |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -316,10 +316,16 @@ static void print_status_narrow(void) {
     }
 
     oled_write_P(PSTR("\n\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
+    led_t led_state = host_keyboard_led_state();
 
-    if (led_usb_state.caps_lock) {
-        oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    if (led_state.num_lock) {
+        oled_write_ln_P(PSTR("NUMLK"), true);
+    }
+    if (led_state.caps_lock) {
+        oled_write_ln_P(PSTR("CAPSL"), true);
+    }
+    if (led_state.scroll_lock) {
+        oled_write_ln_P(PSTR("SCRLK"), true);
     }
 }
 
