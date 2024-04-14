@@ -42,6 +42,8 @@
 #endif
 #define ENCODER_DIRECTION_FLIP
 
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
 
 #define RGBLIGHT_SLEEP
 //
