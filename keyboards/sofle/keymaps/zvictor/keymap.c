@@ -23,9 +23,9 @@ enum custom_keycodes {
     KC_LOWER,
     KC_RAISE,
     KC_ADJUST,
-    KC_D_MUTE,
 
     KC_FIND_,
+    KC_NFIND,
     KC_PRVWD,
     KC_NXTWD,
     KC_LSTRT,
@@ -147,9 +147,9 @@ LT(_NUMPAD,KC_TAB),KC_B,    KC_Y,    KC_O,    KC_U,    KC_QUOT,                 
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      | Ins  | Pscr | Menu |      | Caps |                    |      |      |      |      |      | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | LAt  | LCtl |LShift|      | Find |-------.    ,-------|      |      |      |      |      |      |
+ * |      |Select| Save | Stop | Again| Find |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|  Home |    |  End  |------+------+------+------+------+------|
- * |      | Undo |  Cut | Copy | Paste|      |-------|    |-------|      |      |      |      |      |      |
+ * |      | Undo |  Cut | Copy | Paste| nFind|-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |      |      |      | /       /       \      \  |      |      |      |      |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -158,13 +158,13 @@ LT(_NUMPAD,KC_TAB),KC_B,    KC_Y,    KC_O,    KC_U,    KC_QUOT,                 
 [_LOWER] = LAYOUT(
   _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,             LT(_SWITCH,KC_F6), KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______,  KC_INS, KC_PSCR,  KC_APP, XXXXXXX, CW_TOGG,                       _______, _______, _______, _______, _______, KC_F12,
-  _______,KC_SELECT, KC_STOP, KC_AGAIN, XXXXXXX, KC_FIND_,                       _______, _______, _______, _______, _______, _______,
-  _______, KC_UNDO,  KC_CUT, KC_COPY,KC_PASTE, XXXXXXX,KC_LSTRT,     KC_LEND, _______, _______, _______, _______, _______, _______,
+  _______,KC_SELECT,LCTL(KC_S),KC_STOP,KC_AGAIN,KC_FIND_,                       _______, _______, _______, _______, _______, _______,
+  _______, KC_UNDO,  KC_CUT, KC_COPY,KC_PASTE, KC_NFIND,KC_LSTRT,     KC_LEND, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |  {   |  }   |  [   |  ]   |  (   |  )   |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |  Del |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                    | PgUP | pWrd |  Up  | nWrd | DLine| Bspc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -177,10 +177,10 @@ LT(_NUMPAD,KC_TAB),KC_B,    KC_Y,    KC_O,    KC_U,    KC_QUOT,                 
  *            `----------------------------------'           '------''---------------------------'
  */
 [_RAISE] = LAYOUT(
-  _______, _______, _______, _______, _______, _______,                    KC_LCBR,  KC_RCBR, KC_LBRC, KC_RBRC,  KC_LPRN,  KC_RPRN,
-  _______, _______, _______, _______, _______, _______,                    KC_PGUP, KC_PRVWD,   KC_UP, KC_NXTWD, KC_DLINE, KC_BSPC,
-  _______, _______, _______, _______, _______, _______,                    KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT,  KC_DEL, KC_BSPC,
-  _______, _______, _______, _______, _______, _______,KC_BTN1,   KC_BTN2,XXXXXXX, KC_LSTRT, XXXXXXX, KC_LEND,   XXXXXXX, _______,
+  _______, _______, _______, _______, _______, _______,                    _______,  _______,  _______,  _______,  _______,   KC_DEL,
+  _______, _______, _______, _______, _______, _______,                    KC_PGUP, KC_PRVWD,    KC_UP, KC_NXTWD, KC_DLINE,  KC_BSPC,
+  _______, _______, _______, _______, _______, _______,                    KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_DEL,  KC_BSPC,
+  _______, _______, _______, _______, _______, _______,KC_BTN1,    KC_BTN2,XXXXXXX, KC_LSTRT,  XXXXXXX,  KC_LEND,  XXXXXXX,  _______,
                  _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
 ),
 /* ADJUST
@@ -352,6 +352,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
+// Helper function to handle custom key press and release
+static void handle_custom_key(uint16_t key, uint16_t mod, keyrecord_t *record) {
+    if (record->event.pressed) {
+        register_mods(mod_config(mod));
+        register_code(key);
+    } else {
+        unregister_mods(mod_config(mod));
+        unregister_code(key);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // LAYERS
@@ -401,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        // SPECIAL KEYS
+        // custom KEYS
         case KC_FIND_:
             if (record->event.pressed) {
                 if (keymap_config.swap_lctl_lgui) {
@@ -419,134 +430,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             break;
+        case KC_NFIND:
+            handle_custom_key(KC_G, MOD_LCTL, record);
+            break;
         case KC_PRVWD:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_LEFT);
-                } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_LEFT);
-                }
-            } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_LEFT);
-                } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_LEFT);
-                }
-            }
+            handle_custom_key(KC_LEFT, keymap_config.swap_lctl_lgui ? MOD_LALT : MOD_LCTL, record);
             break;
         case KC_NXTWD:
-             if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    register_mods(mod_config(MOD_LALT));
-                    register_code(KC_RIGHT);
-                } else {
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_RIGHT);
-                }
-            } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LALT));
-                    unregister_code(KC_RIGHT);
-                } else {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_RIGHT);
-                }
-            }
+            handle_custom_key(KC_RIGHT, keymap_config.swap_lctl_lgui ? MOD_LALT : MOD_LCTL, record);
             break;
         case KC_LSTRT:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                     //CMD-arrow on Mac, but we have CTL and GUI swapped
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_LEFT);
-                } else {
-                    register_code(KC_HOME);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                handle_custom_key(KC_LEFT, MOD_LCTL, record);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_LEFT);
-                } else {
-                    unregister_code(KC_HOME);
-                }
+                handle_custom_key(KC_HOME, 0, record);
             }
             break;
         case KC_LEND:
-            if (record->event.pressed) {
-                if (keymap_config.swap_lctl_lgui) {
-                    //CMD-arrow on Mac, but we have CTL and GUI swapped
-                    register_mods(mod_config(MOD_LCTL));
-                    register_code(KC_RIGHT);
-                } else {
-                    register_code(KC_END);
-                }
+            if (keymap_config.swap_lctl_lgui) {
+                handle_custom_key(KC_RIGHT, MOD_LCTL, record);
             } else {
-                if (keymap_config.swap_lctl_lgui) {
-                    unregister_mods(mod_config(MOD_LCTL));
-                    unregister_code(KC_RIGHT);
-                } else {
-                    unregister_code(KC_END);
-                }
+                handle_custom_key(KC_END, 0, record);
             }
             break;
         case KC_DLINE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_BSPC);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_BSPC);
-            }
+            handle_custom_key(KC_BSPC, MOD_LCTL, record);
             break;
         case KC_COPY:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_C);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_C);
-            }
+            handle_custom_key(KC_C, MOD_LCTL, record);
             return false;
         case KC_PASTE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_V);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_V);
-            }
+            handle_custom_key(KC_V, MOD_LCTL, record);
             return false;
         case KC_CUT:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_X);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_X);
-            }
+            handle_custom_key(KC_X, MOD_LCTL, record);
             return false;
-            break;
         case KC_UNDO:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
-            }
+            handle_custom_key(KC_Z, MOD_LCTL, record);
             return false;
-        case KC_D_MUTE:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_MEH));
-                register_code(KC_UP);
-            } else {
-                unregister_mods(mod_config(MOD_MEH));
-                unregister_code(KC_UP);
-            }
+        default:
+            return true;
     }
     return true;
 }
