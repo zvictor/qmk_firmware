@@ -40,8 +40,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_COLEMAK]  = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),    ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
     [_COLEMAKDH]= { ENCODER_CCW_CW(_______, _______),    ENCODER_CCW_CW(_______, _______)},
     [_LOWER]    = { ENCODER_CCW_CW(KC_NXTWD, KC_PRVWD),  ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
-    [_RAISE]    = { ENCODER_CCW_CW(KC_WH_R, KC_WH_L),  ENCODER_CCW_CW(KC_WH_D, KC_WH_U)},
-    [_ADJUST]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),    ENCODER_CCW_CW(KC_BRID, KC_BRIU)},
+    [_RAISE]    = { ENCODER_CCW_CW(KC_WH_L, KC_WH_R),    ENCODER_CCW_CW(KC_WH_U, KC_WH_D)},
+    [_ADJUST]   = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD),    ENCODER_CCW_CW(KC_BRIU, KC_BRID)},
     [_NUMPAD]   = { ENCODER_CCW_CW(KC_MS_R, KC_MS_L),    ENCODER_CCW_CW(KC_MS_D, KC_MS_U)},
     [_SWITCH]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),    ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
 };
@@ -220,8 +220,8 @@ MEH(KC_LEFT),MEH(KC_DOWN),MEH(KC_RGHT),HYPR(KC_LEFT),HYPR(KC_DOWN),HYPR(KC_RGHT)
  */
 [_NUMPAD] = LAYOUT(
   XXXXXXX,  KC_EQL, KC_MINS, KC_PLUS, XXXXXXX, XXXXXXX,                   _______, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, KC_CALC,
-  XXXXXXX, KC_LPRN, KC_RPRN, KC_PIPE,   KC_LT,   KC_GT,                   KC_CIRC, KC_P7,  KC_P8,   KC_P9,   KC_PPLS, KC_LPRN,
-  XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, XXXXXXX, XXXXXXX,                   KC_PERC, KC_P4,  KC_P5,   KC_P6,   KC_PCMM, KC_RPRN,
+  XXXXXXX, KC_LPRN, KC_RPRN, KC_PIPE,   KC_LT,   KC_GT,                   KC_CIRC, KC_P7,  KC_P8,   KC_P9,   KC_PLUS, KC_LPRN,
+  XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, XXXXXXX, XXXXXXX,                   KC_PERC, KC_P4,  KC_P5,   KC_P6,  KC_COMMA, KC_RPRN,
   XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, XXXXXXX, XXXXXXX,KC_BTN1,   KC_BTN2,_______, KC_P1,  KC_P2,   KC_P3,   KC_PEQL, _______,
               _______, OSM(MOD_MEH), _______, _______, _______,   _______, _______,  KC_P0,   KC_PDOT, KC_PENT
 ),
@@ -551,45 +551,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
+// #ifdef ENCODER_ENABLE
+//
+// bool encoder_update_user(uint8_t index, bool clockwise) {
+//     if (index == 0) {
+//         if (clockwise) {
+//             tap_code(KC_VOLU);
+//         } else {
+//             tap_code(KC_VOLD);
+//         }
+// 		} else if (index == 1) {
+// 			switch (get_highest_layer(layer_state)) {
+// 				case _COLEMAK:
+// 				case _ENGRAM:
+// 				case _QWERTY:
+// 				case _COLEMAKDH:
+// 					if (clockwise) {
+// 						tap_code(KC_PGDN);
+// 					} else {
+// 						tap_code(KC_PGUP);
+// 					}
+// 				break;
+// 			case _RAISE:
+// 			case _LOWER:
+// 					if (clockwise) {
+// 						tap_code(KC_DOWN);
+// 					} else {
+// 						tap_code(KC_UP);
+// 					}
+// 				break;
+// 			default:
+// 					if (clockwise) {
+// 						tap_code(KC_WH_D);
+// 					} else {
+// 						tap_code(KC_WH_U);
+// 					}
+// 				break;
+// 		}
+//     }
+//     return true;
+// }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-		} else if (index == 1) {
-			switch (get_highest_layer(layer_state)) {
-				case _COLEMAK:
-				case _ENGRAM:
-				case _QWERTY:
-				case _COLEMAKDH:
-					if (clockwise) {
-						tap_code(KC_PGDN);
-					} else {
-						tap_code(KC_PGUP);
-					}
-				break;
-			case _RAISE:
-			case _LOWER:
-					if (clockwise) {
-						tap_code(KC_DOWN);
-					} else {
-						tap_code(KC_UP);
-					}
-				break;
-			default:
-					if (clockwise) {
-						tap_code(KC_WH_D);
-					} else {
-						tap_code(KC_WH_U);
-					}
-				break;
-		}
-    }
-    return true;
-}
-
-#endif
+// #endif
