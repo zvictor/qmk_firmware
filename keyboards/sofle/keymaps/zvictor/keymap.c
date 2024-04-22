@@ -145,9 +145,9 @@ LT(_NUMPAD,KC_TAB),KC_B,    KC_Y,    KC_O,    KC_U,    KC_QUOT,                 
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | Ins  | Pscr | Menu |      | Caps |                    |      |      |      |      |      | F12  |
+ * |      | Quit | Close|      |      |      |                    | Ins  | Pscr | Menu |      |      | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |Select| Save | Stop | Again| Find |-------.    ,-------|      |      |      |      |      |      |
+ * | Caps |Select| Save | Stop | Again| Find |-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|  Home |    |  End  |------+------+------+------+------+------|
  * |      | Undo |  Cut | Copy | Paste| nFind|-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -156,11 +156,11 @@ LT(_NUMPAD,KC_TAB),KC_B,    KC_Y,    KC_O,    KC_U,    KC_QUOT,                 
  *            `----------------------------------'           '------''---------------------------'
  */
 [_LOWER] = LAYOUT(
-  _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,             LT(_SWITCH,KC_F6), KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______,  KC_INS, KC_PSCR,  KC_APP, XXXXXXX, CW_TOGG,                       _______, _______, _______, _______, _______, KC_F12,
-  _______,KC_SELECT,LCTL(KC_S),KC_STOP,KC_AGAIN,KC_FIND_,                       _______, _______, _______, _______, _______, _______,
-  _______, KC_UNDO,  KC_CUT, KC_COPY,KC_PASTE, KC_NFIND,KC_LSTRT,     KC_LEND, _______, _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+  _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,             LT(_SWITCH,KC_F6),  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
+LCTL(KC_TAB),LCTL(KC_Q),LCTL(KC_W),XXXXXXX,XXXXXXX, XXXXXXX,                        KC_INS, KC_PSCR,  KC_APP, _______, _______, KC_F12,
+  CW_TOGG,KC_SELECT,LCTL(KC_S), KC_STOP, KC_AGAIN, KC_FIND_,                       _______, _______,  _______,  _______,   _______,  _______,
+LCTL(KC_GRV),KC_UNDO,  KC_CUT,  KC_COPY, KC_PASTE, KC_NFIND, KC_LSTRT,    KC_LEND, _______, _______,  _______,  _______,   _______,  _______,
+                      _______,  _______,  _______,  _______,  _______,    _______, _______, _______,  _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -206,23 +206,23 @@ MEH(KC_LEFT),MEH(KC_DOWN),MEH(KC_RGHT),HYPR(KC_LEFT),HYPR(KC_DOWN),HYPR(KC_RGHT)
 ),
 /* NUMPAD
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |  =   |  -   |  +   |      |      |                    |      |NumLck|   /  |   *  |   -  | Calc |
+ * |      |  (   |  )   |  \   |  <   |  >   |                    |      |NumLck|   /  |   *  |   -  | Calc |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  (   |  )   |  |   |  <   |  >   |                    |   ^  |   7  |   8  |   9  |   +  |   (  |
+ * |      |  [   |  ]   |  |   |      |      |                    |   ^  |   7  |   8  |   9  |   +  |   (  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |  [   |  ]   |  \   |      |      |-------.    ,-------|   %  |   4  |   5  |   6  |   ,  |   )  |
+ * |      |  {   |  }   |  /   |      |      |-------.    ,-------|   %  |   4  |   5  |   6  |   ,  |   )  |
  * |------+------+------+------+------+------|  BTN1 |    |  BTN2 |------+------+------+------+------+------|
- * |      |  {   |  }   |  /   |      |      |-------|    |-------|      |   1  |   2  |   3  |   =  |      |
+ * |      |  =   |  -   |  +   |  *   |      |-------|    |-------|      |   1  |   2  |   3  |   =  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            |      |OSMMEH|      |      | /       /       \      \  |      | 0    |  .   | Enter|
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
 [_NUMPAD] = LAYOUT(
-  XXXXXXX,  KC_EQL, KC_MINS, KC_PLUS, XXXXXXX, XXXXXXX,                   _______, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, KC_CALC,
-  XXXXXXX, KC_LPRN, KC_RPRN, KC_PIPE,   KC_LT,   KC_GT,                   KC_CIRC, KC_P7,  KC_P8,   KC_P9,   KC_PLUS, KC_LPRN,
-  XXXXXXX, KC_LBRC, KC_RBRC, KC_BSLS, XXXXXXX, XXXXXXX,                   KC_PERC, KC_P4,  KC_P5,   KC_P6,  KC_COMMA, KC_RPRN,
-  XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, XXXXXXX, XXXXXXX,KC_BTN1,   KC_BTN2,_______, KC_P1,  KC_P2,   KC_P3,   KC_PEQL, _______,
+  XXXXXXX, KC_LPRN, KC_RPRN, KC_BSLS,   KC_LT,   KC_GT,                   _______, KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, KC_CALC,
+  XXXXXXX, KC_LBRC, KC_RBRC, KC_PIPE, XXXXXXX, XXXXXXX,                   KC_CIRC, KC_P7,  KC_P8,   KC_P9,   KC_PLUS, KC_LPRN,
+  XXXXXXX, KC_LCBR, KC_RCBR, KC_SLSH, XXXXXXX, XXXXXXX,                   KC_PERC, KC_P4,  KC_P5,   KC_P6,  KC_COMMA, KC_RPRN,
+  XXXXXXX,  KC_EQL, KC_MINS, KC_PLUS, KC_PAST, XXXXXXX,KC_BTN1,   KC_BTN2,_______, KC_P1,  KC_P2,   KC_P3,   KC_PEQL, _______,
               _______, OSM(MOD_MEH), _______, _______, _______,   _______, _______,  KC_P0,   KC_PDOT, KC_PENT
 ),
 
