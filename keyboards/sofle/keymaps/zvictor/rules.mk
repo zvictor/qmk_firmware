@@ -1,3 +1,4 @@
+CONVERT_TO = promicro_rp2040
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
@@ -5,6 +6,6 @@ RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
 LTO_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306 # https://www.reddit.com/r/olkb/comments/1cfqsqh/comment/l4vkx3m/
 ENCODER_MAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes

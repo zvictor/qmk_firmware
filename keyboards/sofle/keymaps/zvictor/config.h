@@ -73,7 +73,10 @@
 	//#define RGBLIGHT_EFFECT_ALTERNATING
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
-    #define RGBLED_NUM 72
+    #ifndef RGBLIGHT_LED_COUNT
+    #define RGBLIGHT_LED_COUNT 72
+    #endif
+
 	//#define RGBLED_SPLIT
 	#define RGBLED_SPLIT { 36, 36 } // haven't figured out how to use this yet
 
